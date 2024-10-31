@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>List of Categories</title>
+    <style>
+        /* Tạo đường viền cho bảng và các ô */
+        table.custom-bordered {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.custom-bordered, table.custom-bordered th, table.custom-bordered td {
+            border: 1px solid #ddd;
+        }
+        table.custom-bordered th, table.custom-bordered td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body layout:decorate="~{admin/layout-admin.html}">
+<div th:insert="~{fragments/header :: header}">...</div>
+<div layout:fragment="content">
+    <h2>Category List</h2>
+
+    <!-- Nút thêm danh mục -->
+    <div class="mb-3">
+        <a th:href="@{/admin/categories/add}" class="btn btn-success">
+            <i class="fa fa-plus"></i> Add New Category
+        </a>
+    </div>
+
+    <!-- Hiển thị thông báo -->
+    <div th:if="${message != null}" class="alert alert-primary" role="alert">
+        <span th:text="${message}"></span>
+    </div>
+
+    <!-- Bảng danh sách danh mục với CSS tùy chỉnh -->
+    <table class="custom-bordered">
+        <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Image</th>
+            <th>Category Name</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.categoryId}"></td>
+
+            <!-- Cột hình ảnh -->
+            <td>
+                <img th:src="@{/image(fname=${category.images})}" alt="Category Image" height="100" width="100"/>
+            </td>
+
+            <td th:text="${category.categoryName}"></td>
+            <td th:text="${category.status == 1 ? 'Active' : 'Inactive'}"></td>
+            <td>
+                <!-- Nút Sửa -->
+                <a th:href="@{/admin/categories/edit/{id}(id=${category.categoryId})}" class="btn btn-outline-warning" title="Edit">
+                    <i class="fa fa-edit"></i> Edit
+                </a>
+                <!-- Nút Xóa -->
+                <a th:href="@{/admin/categories/delete/{id}(id=${category.categoryId})}" class="btn btn-outline-danger" title="Delete"
+                   onclick="return confirm('Are you sure you want to delete this category?');">
+                    <i class="fa fa-trash"></i> Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:insert="~{fragments/footer :: footer}">...</div>
+</body>
+</html>

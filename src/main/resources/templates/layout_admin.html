@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Admin Layout</title>
+    <!-- Thêm các đường dẫn CSS/JS ở đây nếu cần -->
+</head>
+
+<body>
+<!-- Phần header -->
+<header class="row">
+    <div class="col">
+        <div th:replace="~{admin/fragments/header :: header}"></div>
+    </div>
+</header>
+
+<!-- Phần main content -->
+<main class="container">
+    <!-- Phần nav -->
+    <!-- Nếu không cần nav ở trang cụ thể, có thể bỏ phần này -->
+    <nav class="row">
+        <div class="col">
+            <div th:replace="~{admin/fragments/nav :: nav}"></div>
+        </div>
+    </nav>
+
+    <!-- Phần nội dung chính -->
+    <section class="row mt-4">
+        <div class="col mt-5 mb-5">
+            <div layout:fragment="content"></div>
+        </div>
+    </section>
+</main>
+
+<!-- Phần footer -->
+<footer class="row">
+    <div class="col">
+        <div th:replace="~{admin/fragments/footer :: footer}"></div>
+    </div>
+</footer>
+</body>
+</html>
